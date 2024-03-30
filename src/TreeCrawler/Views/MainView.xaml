@@ -1,0 +1,63 @@
+﻿<Window
+    x:Class="TreeCrawler.Views.MainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:this="clr-namespace:TreeCrawler.Views"
+    Title="Tree crawler"
+    Width="800"
+    Height="1200"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5,2.5,2.5,5" />
+            <Setter Property="Height" Value="90" />
+        </Style>
+    </Window.Resources>
+    <Window.DataContext>
+        <this:MainViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="150" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBox
+                Grid.Row="0"
+                Margin="5,5,5,2.5"
+                AcceptsReturn="True"
+                FontFamily="Consolas"
+                Text="{Binding DotScript}" />
+            <TextBox
+                Grid.Row="1"
+                Height="600"
+                Background="Pink"
+                FontFamily="Consolas"
+                Foreground="Crimson"
+                IsReadOnly="True"
+                Text="{Binding DotScriptRenderer}"
+                TextChanged="OnTextChanged"
+                Visibility="Collapsed" />
+            <Button
+                Grid.Row="2"
+                Command="{Binding CrawlTree}"
+                Content="Crawl tree" />
+        </Grid>
+        <GridSplitter
+            Grid.Column="1"
+            Width="5"
+            HorizontalAlignment="Stretch" />
+        <Image
+            Grid.Column="2"
+            Source="{Binding ImageSource, UpdateSourceTrigger=PropertyChanged}"
+            Stretch="None" />
+    </Grid>
+</Window>
